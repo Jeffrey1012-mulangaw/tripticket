@@ -27,8 +27,9 @@
     }
     .table td, .table th {
       border: 1px solid #000;
-      padding: 4px;
+      padding: 2px 4px;
       text-align: left;
+      font-size: 8pt;
     }
     .signature-line {
       margin-top: 40px;
@@ -118,7 +119,12 @@
 
 <table class="table" id="odometers-table">
   <thead>
-    <tr><th>Odometer Entry</th></tr>
+      <th>Orgin</th>
+      <th>Destination</th>
+      <th>Odometer Reading Before Departure (Origin)</th>
+      <th>Time of Departure from origin</th>
+      <th>Odometer Reading During Arrival (Destination)</th>
+      <th>Time Arrival at Destination</th>
   </thead>
   <tbody></tbody>
 </table>
@@ -136,16 +142,27 @@
 
   // Dynamic odometer entries (single column, separated by @)
   const odometerData = urlParams.get("odometers") || "";
-  const odometerRows = odometerData.split("@").filter(row => row.trim() !== "");
+  const odometerRows = odometerData.split("@");
   const tableBody = document.querySelector("#odometers-table tbody");
 
-  odometerRows.forEach(rowText => {
+  for (let i = 0; i < items.length; i += 6) {
     const row = document.createElement("tr");
-    const cell = document.createElement("td");
-    cell.textContent = rowText.trim();
-    row.appendChild(cell);
+
+   const orig = items[i]?.trim() || "";
+    const destination = items[i + 1]?.trim() || "";
+    const OdoBefore = items[i + 2]?.trim() || "";
+    const TimeBefore = items[i + 3]?.trim() || "";
+    const OdoAfter = items[i + 4]?.trim() || "";
+    const TimeAfter = items[i + 5]?.trim() || "";
+
+    [orig, destination, OdoBefore, TimeBefore, OdoAfter,TimeAfter].forEach(text => {
+      const cell = document.createElement("td");
+      cell.textContent = text;
+      row.appendChild(cell);
+    });
+
     tableBody.appendChild(row);
-  });
+  }
 </script>
 
 </body>
