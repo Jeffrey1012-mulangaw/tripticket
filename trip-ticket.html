@@ -141,8 +141,10 @@
   document.getElementById("drivercert").textContent = urlParams.get("drivercert") || "__________________";
 
   // Dynamic odometer entries (single column, separated by @)
+  const urlParams = new URLSearchParams(window.location.search);
+
   const odometerData = urlParams.get("odometers") || "";
-  const odometerRows = odometerData.split("@");
+  const items = odometerData.split("@");
   const tableBody = document.querySelector("#odometers-table tbody");
 
   for (let i = 0; i < items.length; i += 6) {
@@ -155,7 +157,7 @@
     const odoa = items[i + 4]?.trim() || "";
     const timea = items[i + 5]?.trim() || "";
 
-    [origin, destination, odob, timeb, odoa,timea].forEach(text => {
+    [origin, destination, odob, timeb, odoa, timea].forEach(text => {
       const cell = document.createElement("td");
       cell.textContent = text;
       row.appendChild(cell);
