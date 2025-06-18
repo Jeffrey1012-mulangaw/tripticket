@@ -149,13 +149,13 @@
     const row = document.createElement("tr");
 
    const orig = items[i]?.trim() || "";
-    const destination = items[i + 1]?.trim() || "";
+    const dest = items[i + 1]?.trim() || "";
     const OdoBefore = items[i + 2]?.trim() || "";
     const TimeBefore = items[i + 3]?.trim() || "";
     const OdoAfter = items[i + 4]?.trim() || "";
     const TimeAfter = items[i + 5]?.trim() || "";
 
-    [orig, destination, OdoBefore, TimeBefore, OdoAfter,TimeAfter].forEach(text => {
+    [orig, dest, OdoBefore, TimeBefore, OdoAfter,TimeAfter].forEach(text => {
       const cell = document.createElement("td");
       cell.textContent = text;
       row.appendChild(cell);
