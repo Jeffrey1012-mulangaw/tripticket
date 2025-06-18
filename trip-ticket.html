@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Trip Ticket</title>
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      font-size: 8pt;
+      margin: 54px; /* ≈ 0.75 inch margin */
+    }
+    h2, h3 {
+      text-align: center;
+      margin: 2px 0;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .section {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .table td, .table th {
+      border: 1px solid #000;
+      padding: 4px;
+      text-align: left;
+    }
+    .signature-line {
+      margin-top: 40px;
+      border-top: 1px solid #000;
+      width: 50%;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
+    .sub-label {
+      margin-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>REPUBLIC OF THE PHILIPPINES</h2>
+<h3>DEPARTMENT OF BUDGET AND MANAGEMENT</h3>
+<h3>PROCUREMENT SERVICE</h3>
+
+<h2 style="margin-top: 10px;">Our Trip Ticket</h2>
+
+<div class="section">
+  <div><span class="label">Trip Ticket No.:</span> <span id="ticketno">________</span></div>
+  <div><span class="label">Date:</span> <span id="date">________</span></div>
+</div>
+
+<div class="section">
+  <div class="label">A. To be filled up by the Administrative Officer Authorizing Official Travel:</div>
+  <div class="sub-label">1. Name of Driver: <span id="driver">________</span></div>
+  <div class="sub-label">2. Government car to be used, Plate No.: <span id="truck">________</span></div>
+  <div class="sub-label">3. Name of Authorized passenger/s: ___________________________________________</div>
+  <div class="sub-label">4. Place/s to be visited/Inspected: <span id="docno">________</span></div>
+  <div class="sub-label">5. Purpose: Delivery of CSE supplies</div>
+</div>
+
+<div class="signature-line">Catherine Ann D. Mirabel<br>Chief, WADD</div>
+
+<div class="section">
+  <div class="label">B. To be filled up by the Driver:</div>
+  <ol>
+    <li>Time of departure from the office/garage __________________________ am/pm</li>
+    <li>Time of arrival at (per no.4 above) ________________________________ am/pm</li>
+    <li>Time of departure from (per no.4 above) ___________________________ am/pm</li>
+    <li>Time of arrival back to the office/garage ___________________________ am/pm</li>
+    <li>Approximate distance travelled (to and from) ____________________ miles/km</li>
+    <li>
+      Gasoline issued, purchased, and consumed:
+      <ul>
+        <li>a. Balance in tank ____________________________________ liters</li>
+        <li>b. Issued by Office from stock _______________________ liters</li>
+        <li>c. Add- purchased during the trip ____________________ liters</li>
+        <li>d. Totals ___________________________________________ liters</li>
+        <li>e. Deduct - used during the trip ______________________ liters</li>
+        <li>f. Balance in tank at the end of trip ___________________ liters</li>
+      </ul>
+    </li>
+    <li>Gear oil Issued _______________________________________ liters</li>
+    <li>Lube oil Issued _______________________________________ liters</li>
+    <li>Grease Issued ________________________________________ liters</li>
+    <li>
+      Speedometer readings:
+      <ul>
+        <li>At beginning of trip: ___________________________ miles/kms</li>
+        <li>At end of trip: ________________________________ miles/kms</li>
+        <li>Distance travelled: _____________________________ miles/kms</li>
+      </ul>
+    </li>
+    <li>Remarks: ____________________________________________</li>
+  </ol>
+</div>
+
+<div style="margin-top: 20px;">
+  <p>I hereby certify to the correctness of the above statement of record travel.</p>
+  <div class="signature-line" id="drivercert">__________________</div>
+</div>
+
+<div style="margin-top: 20px;">
+  <p>I hereby certify that I used this car on official business as stated.</p>
+  <div class="signature-line">Name of Passenger</div>
+</div>
+
+<h3 style="margin-top: 30px;">Origin / Destination Odometer Log</h3>
+
+<table class="table" id="odometers-table">
+  <thead>
+    <tr><th>Odometer Entry</th></tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+
+  // Dynamic text fields
+  document.getElementById("ticketno").textContent = urlParams.get("ticketno") || "________";
+  document.getElementById("date").textContent = urlParams.get("date") || "________";
+  document.getElementById("driver").textContent = urlParams.get("driver") || "________";
+  document.getElementById("truck").textContent = urlParams.get("truck") || "________";
+  document.getElementById("docno").textContent = urlParams.get("docno") || "________";
+  document.getElementById("drivercert").textContent = urlParams.get("drivercert") || "__________________";
+
+  // Dynamic odometer entries (single column, separated by @)
+  const odometerData = urlParams.get("odometers") || "";
+  const odometerRows = odometerData.split("@").filter(row => row.trim() !== "");
+  const tableBody = document.querySelector("#odometers-table tbody");
+
+  odometerRows.forEach(rowText => {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.textContent = rowText.trim();
+    row.appendChild(cell);
+    tableBody.appendChild(row);
+  });
+</script>
+
+</body>
+</html>
