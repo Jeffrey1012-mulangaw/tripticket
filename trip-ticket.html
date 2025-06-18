@@ -6,31 +6,44 @@
   <style>
     body {
       font-family: Tahoma, sans-serif;
-      font-size: 11pt;
-      margin: 54px; /* ≈ 0.75 inch margin */
+      font-size: 8pt;
+      margin: 54px; /* ≈ 0.75 inch on all sides */
     }
+
     h2, h3 {
       text-align: center;
       margin: 2px 0;
     }
+
+    p, .section {
+      text-align: justify;
+    }
+
     .label {
       font-weight: bold;
     }
+
     .section {
-      margin-top: 15px;
-      margin-bottom: 15px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
+
+    .sub-label {
+      margin-bottom: 2px;
+    }
+
     .table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 10px;
     }
-    .table td, .table th {
+
+    .table th, .table td {
       border: 1px solid #000;
-      padding: 2px 4px;
+      padding: 4px;
       text-align: left;
-      font-size: 8pt;
     }
+
     .signature-line {
       margin-top: 40px;
       border-top: 1px solid #000;
@@ -38,12 +51,15 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    .flex {
-      display: flex;
-      justify-content: space-between;
+
+    .page-break {
+      page-break-before: always;
     }
-    .sub-label {
-      margin-bottom: 2px;
+
+    @media print {
+      .page-break {
+        page-break-before: always;
+      }
     }
   </style>
 </head>
@@ -53,7 +69,7 @@
 <h3>DEPARTMENT OF BUDGET AND MANAGEMENT</h3>
 <h3>PROCUREMENT SERVICE</h3>
 
-<h2 style="margin-top: 10px;">Trip Ticket</h2>
+<h2 style="margin-top: 10px;">Our Trip Ticket</h2>
 
 <div class="section">
   <div><span class="label">Trip Ticket No.:</span> <span id="ticketno">________</span></div>
@@ -74,34 +90,34 @@
 <div class="section">
   <div class="label">B. To be filled up by the Driver:</div>
   <ol>
-    <li>Time of departure from the office/garage _________________________________ am/pm</li>
-    <li>Time of arrival at (per no.4 above) ______________________________________ am/pm</li>
-    <li>Time of departure from (per no.4 above) _________________________________ am/pm</li>
-    <li>Time of arrival back to the office/garage _________________________________ am/pm</li>
-    <li>Approximate distance travelled (to and from) _____________________________ miles/km</li>
+    <li>Time of departure from the office/garage __________________________ am/pm</li>
+    <li>Time of arrival at (per no.4 above) ________________________________ am/pm</li>
+    <li>Time of departure from (per no.4 above) ___________________________ am/pm</li>
+    <li>Time of arrival back to the office/garage ___________________________ am/pm</li>
+    <li>Approximate distance travelled (to and from) ____________________ miles/km</li>
     <li>
       Gasoline issued, purchased, and consumed:
       <ul>
-        <li>a. Balance in tank ______________________________________________ liters</li>
-        <li>b. Issued by Office from stock ____________________________________ liters</li>
-        <li>c. Add- purchased during the trip __________________________________ liters</li>
-        <li>d. Totals ______________________________________________________ liters</li>
-        <li>e. Deduct - used during the trip ___________________________________ liters</li>
-        <li>f. Balance in tank at the end of trip ________________________________ liters</li>
+        <li>a. Balance in tank ____________________________________ liters</li>
+        <li>b. Issued by Office from stock _______________________ liters</li>
+        <li>c. Add- purchased during the trip ____________________ liters</li>
+        <li>d. Totals ___________________________________________ liters</li>
+        <li>e. Deduct - used during the trip ______________________ liters</li>
+        <li>f. Balance in tank at the end of trip ___________________ liters</li>
       </ul>
     </li>
-    <li>Gear oil Issued _____________________________________________________ liters</li>
-    <li>Lube oil Issued _____________________________________________________ liters</li>
-    <li>Grease Issued ______________________________________________________ liters</li>
+    <li>Gear oil Issued _______________________________________ liters</li>
+    <li>Lube oil Issued _______________________________________ liters</li>
+    <li>Grease Issued ________________________________________ liters</li>
     <li>
       Speedometer readings:
       <ul>
-        <li>At beginning of trip: _________ __________________________________ miles/kms</li>
-        <li>At end of trip: _________________________________________________ miles/kms</li>
-        <li>Distance travelled: _____________________________________________ miles/kms</li>
+        <li>At beginning of trip: ___________________________ miles/kms</li>
+        <li>At end of trip: ________________________________ miles/kms</li>
+        <li>Distance travelled: _____________________________ miles/kms</li>
       </ul>
     </li>
-    <li>Remarks: _____________________________________________________________</li>
+    <li>Remarks: ____________________________________________</li>
   </ol>
 </div>
 
@@ -115,16 +131,20 @@
   <div class="signature-line">Name of Passenger</div>
 </div>
 
-<h3 style="margin-top: 30px;">Origin / Destination Odometer Log</h3>
+<!-- PAGE BREAK -->
+<div class="page-break"></div>
 
+<h3>Origin / Destination Odometer Log</h3>
 <table class="table" id="odometers-table">
   <thead>
-      <th>Orgin</th>
+    <tr>
+      <th>Origin</th>
       <th>Destination</th>
-      <th>Odometer Reading Before Departure (Origin)</th>
-      <th>Time of Departure from origin</th>
-      <th>Odometer Reading During Arrival (Destination)</th>
-      <th>Time Arrival at Destination</th>
+      <th>Odo (Begin)</th>
+      <th>Time (Begin)</th>
+      <th>Odo (Arrive)</th>
+      <th>Time (Arrive)</th>
+    </tr>
   </thead>
   <tbody></tbody>
 </table>
@@ -132,7 +152,7 @@
 <script>
   const urlParams = new URLSearchParams(window.location.search);
 
-  // Dynamic text fields
+  // Dynamic fields from Glide
   document.getElementById("ticketno").textContent = urlParams.get("ticketno") || "________";
   document.getElementById("date").textContent = urlParams.get("date") || "________";
   document.getElementById("driver").textContent = urlParams.get("driver") || "________";
@@ -140,9 +160,7 @@
   document.getElementById("docno").textContent = urlParams.get("docno") || "________";
   document.getElementById("drivercert").textContent = urlParams.get("drivercert") || "__________________";
 
-  // Dynamic odometer entries (single column, separated by @)
-  const urlParams = new URLSearchParams(window.location.search);
-
+  // Odometer data (6 fields per row)
   const odometerData = urlParams.get("odometers") || "";
   const items = odometerData.split("@");
   const tableBody = document.querySelector("#odometers-table tbody");
